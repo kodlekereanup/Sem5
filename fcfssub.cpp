@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <utility>
 
 enum status { NOT_ARRIVED, IN_QUEUE, EXECUTING, SUSPENDED, SCHEDULED };
 
@@ -17,52 +18,13 @@ struct Process {
 
 };
 
-void swap(std::vector<Process>& P, int i, int j) {
-    float temp = -1;
-
-    // swap at
-    temp = P[j].arrivalTime;
-    P[j].arrivalTime = P[i].arrivalTime;
-    P[i].arrivalTime = temp;
-    temp = -1;
-
-    //swap bt
-    temp = P[j].burstTime;
-    P[j].burstTime = P[i].burstTime;
-    P[i].burstTime = temp;
-    temp = -1;
-
-    //swap pid
-    temp = P[j].id;
-    P[j].id = P[i].id;
-    P[i].id = temp;
-
-    //swap ft
-    temp = P[j].finishTime;
-    P[j].finishTime = P[i].finishTime;
-    P[i].finishTime = temp;
-
-    //swap tat
-    temp = P[j].turnAroundTime;
-    P[j].turnAroundTime = P[i].turnAroundTime;
-    P[i].turnAroundTime = temp;
-
-    //swap wt
-    temp = P[j].waitingTime;
-    P[j].waitingTime = P[i].waitingTime;
-    P[i].waitingTime = temp;
-
-}
-
 void sort(std::vector<Process>& proc) {
     int n = proc.size() ;
-    for(int i = 0; i < n - 1 ; i++) {
-        for(int j = 0; j < n - i - 1; j++) {
-            if(proc[j].arrivalTime > proc[j+1].arrivalTime) {
-                 swap(proc, j, j+1);
-            }
-        }
-    }
+    for(int i = 0; i < n - 1 ; i++) 
+        for(int j = 0; j < n - i - 1; j++) 
+            if(proc[j].arrivalTime > proc[j+1].arrivalTime) 
+                std::swap(proc[j], proc[j+1]);           
+    
 }
 
 float Process :: scheduleProcess(int prevFinishTime) {
