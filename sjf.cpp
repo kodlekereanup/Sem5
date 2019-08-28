@@ -15,8 +15,7 @@ struct Process {
 	float turnAroundTime;
 	float waitingTime;
 	status stat;
-	bool estat = false;
-
+	
 	float scheduleProcess(int);
 
 };
