@@ -152,7 +152,6 @@ void displayStats(const std::vector<Process>& proc) {
 
 bool complete(const std::vector<Process>& proc) {
     bool check = true;
-
     for(int i = 0; i < proc.size(); i++) {
         if(proc[i].stat != SCHEDULED) {
             check = false;
@@ -189,19 +188,14 @@ int main() {
 		process[i].burstTime = bt;
 	}
 	
-    currentTime = 0;
+    currentTime = 0, prevFinishTime = 0;
     while(!complete(process)) {
         std::vector<int> pid = arrivedProccesses(currentTime, process);
         std::vector<int> schedulable = findNextShortest(process, pid);
 
-        for(int i = 0; i < schedulable.size(); i++) {            
-            if(i == 0 && currentTime == 0) {               
-                prevFinishTime = process[schedulable.at(i)].scheduleProcess(0);
-                currentTime = prevFinishTime;
-            } else {               
-                prevFinishTime = process[schedulable.at(i)].scheduleProcess(prevFinishTime);               
-                currentTime = prevFinishTime;
-            }
+        for(int i = 0; i < schedulable.size(); i++) {                       
+			prevFinishTime = process[schedulable.at(i)].scheduleProcess(prevFinishTime);               
+			currentTime = prevFinishTime;            
         }
     }
 	
