@@ -42,18 +42,16 @@ float Process :: scheduleProcess(int prevFinishTime, int timer, int i) {
 }
 
 // check if time occurs in p vector and return pid //
-std::vector<int> arrivedProccesses(std::vector<Process>& P) {
-	bool flag = false; int i = 0;   std::vector<int> queue;
+void arrivedProccesses(std::vector<Process>& P) {
+	bool flag = false; int i = 0;  // std::vector<int> queue;
 	for (i = 0; i < P.size(); i++) {
 		flag = false;
 		if (P[i].arrivalTime <= currentTime && P[i].state == NOT_ARRIVED) {
 			flag = true;
 			P[i].state = IN_QUEUE;
-			queue.push_back(i);
+			scheduleQueue.push(i);
 		}
 	}
-
-	return queue;
 }
 
 void displayTable(const std::vector<Process>& P) {
@@ -166,8 +164,8 @@ int main() {
     currentTime = 0, prevFinishTime = 0;    
     while(!complete(process)){
         
-        std::vector<int> pid = arrivedProccesses(process);      
-        for(int i = 0; i < pid.size(); i++) scheduleQueue.push(pid.at(i));
+        arrivedProccesses(process);      
+        //for(int i = 0; i < pid.size(); i++) scheduleQueue.push(pid.at(i));
         
         if(flag) scheduleQueue.push(s);       
        
