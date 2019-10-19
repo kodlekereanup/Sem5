@@ -2,6 +2,7 @@
 #include <vector>
 #include <queue>
 #include <conio.h>
+#include <cmath>
 
 enum status { NOT_ARRIVED, IN_QUEUE, EXECUTING, SUSPENDED, SCHEDULED };
 
